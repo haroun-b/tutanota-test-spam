@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="./style.css" />
+  <script type="module" src="./scripts/main.js"></script>
+
+  <link type="image/x-icon" rel="icon" href="./tutanota-logo.svg" />
+  <title>You've got Spam!</title>
+</head>
+
+<body>
+  <form>
+    <input type="file" name="emails" accept=".json" />
+    <input type="submit" value="Analyse" />
+  </form>
+
+  <div id="analysis">
+    <div id="instructions">
+      <p>Please upload a json that has the following structure:</p>
+      <pre>
+  [
+    ...
+    {
+      "recipiant": "EMAIL_RECIPIANT",
+      "title": "EMAIL_TITLE",
+      "body": "EMAIL_BODY"
+    },
+    ...
+  ]
+    </pre>
+    </div>
+  </div>
+
+  <div id="loading-screen" class="hidden">
+    <img src="./tutanota-logo.svg" alt="Tutanota's logo" />
+  </div>
+
+  <template>
+    <article>
+      <h2 class="title"></h2>
+      <p>Sent to: <strong class="recipiant"></strong></p>
+      <p>Total word count:
+        <strong><span class="word-count"></span> words</strong>
+      </p>
+      <p>Unique word count:
+        <strong><span class="unique-words-count"></span> words</strong>
+      </p>
+      <p>Probability of spam:
+        <strong><span class="spam-score"></span>%</strong>
+      </p>
+    </article>
+  </template>
+</body>
+
+</html>

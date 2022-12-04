@@ -1,0 +1,15 @@
+{
+  "name": "spam-analysis",
+  "version": "1.0.0",
+  "description": "A Tutanota technical assignment",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Haroun B.",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

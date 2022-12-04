@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Libre+Franklin:wght@100;400&display=swap');
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  all: unset;
+}
+
+input[name='emails'] {
+  width: 100%;
+  font-weight: 100;
+}
+
+input[value="Analyse"] {
+  background-color: hsl(0, 0%, 100%);
+  border-radius: .3rem;
+  padding: .1rem .6rem;
+  margin-left: 1rem;
+}
+
+input[value="Analyse"]:hover {
+  cursor: pointer;
+  background-color: hsla(0, 0%, 100%, 90%);
+}
+
+body {
+  max-width: fit-content;
+  height: 100vh;
+  margin: 0 auto;
+  padding: 5vh 6vw;
+  background: linear-gradient(hsl(353, 100%, 35%), hsl(353, 100%, 13%));
+  font-family: 'Libre Franklin', sans-serif;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+body,
+form {
+  display: flex;
+  align-items: center;
+}
+
+form {
+  background-color: hsla(0, 0%, 100%, 50%);
+  justify-content: center;
+  padding: calc(.4rem + .5vw) calc(.5rem + 1vw);
+  font-size: calc(1rem + 1vw);
+}
+
+form,
+#analysis {
+  border: 2px solid hsl(0, 0%, 100%);
+  border-radius: 1rem;
+  width: 100%;
+}
+
+#analysis {
+  background-color: hsla(0, 0%, 100%, 80%);
+  margin-top: 2rem;
+  max-height: 100%;
+  overflow: scroll;
+}
+
+#analysis>article {
+  padding: .8rem 1.4rem;
+}
+
+#analysis>article:not(:first-child) {
+  border-top: 1px solid hsl(0, 0%, 80%);
+}
+
+#analysis p {
+  font-weight: 300;
+}
+
+#analysis strong {
+  font-weight: 500;
+  margin-left: .8rem;
+}
+
+#instructions {
+  padding: 1rem 2rem;
+}
+
+#instructions>p {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+#loading-screen.hidden {
+  display: none;
+}
+
+#loading-screen {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: hsla(0, 0%, 0%, 0.8);
+}
+
+#loading-screen>img {
+  width: 20%;
+  animation: 1.5s linear .5s infinite alternate blink;
+}
+
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: .3;
+  }
+}
