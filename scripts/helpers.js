@@ -19,10 +19,15 @@ function displayAnalysis({ analysedEmails, analysisOutput, template }) {
 }
 
 
-function getAnalysisFromWorker({ emails, worker }) {
-  const validEmails = validateEmails(emails);
+function getAnalysisFromWorker({ emails, worker, loadingScreen }) {
+  try {
+    const validEmails = validateEmails(emails);
 
-  worker.postMessage(validEmails);
+    worker.postMessage(validEmails);
+  } catch (error) {
+    loadingScreen.classList.add("hidden");
+    console.error(error);
+  }
 }
 
 

@@ -41,7 +41,7 @@ form.addEventListener("submit", async e => {
   const emailsJson = emailsInput.files[0];
   const emailsJsonIsExample = emailsJson?.name === exampleJsonName && emailsJson.size === 0;
 
-  if (emailsJsonIsExample) return getAnalysisFromWorker({ emails: exampleJsonFile, worker });
+  if (emailsJsonIsExample) return getAnalysisFromWorker({ emails: exampleJsonFile, worker, loadingScreen });
 
 
   reader.readAsText(emailsJson);
@@ -51,7 +51,7 @@ form.addEventListener("submit", async e => {
 reader.addEventListener("load", ({ target: { result } }) => {
   const emails = JSON.parse(result);
 
-  getAnalysisFromWorker({ emails, worker });
+  getAnalysisFromWorker({ emails, worker, loadingScreen });
 });
 
 worker.onmessage = ({ data: analysedEmails }) => {
