@@ -1,6 +1,6 @@
 {
   "name": "spam-analysis",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Tutanota technical assignment",
   "main": "index.js",
   "scripts": {
