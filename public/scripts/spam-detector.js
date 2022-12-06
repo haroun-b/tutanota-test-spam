@@ -58,19 +58,11 @@ class SpamDetector {
   }
 
   static #generateStats(email) {
-    const words = this.#getWords(email.body);
+    const words = email.body.match(/\w+/g);
     const wordCount = words.length;
     const uniqueWordsCount = this.#getUniqueWordsCount(words);
 
     return { ...email, words, wordCount, uniqueWordsCount, similarityArray: [] };
-  }
-
-  static #getWords(textBody) {
-    return textBody
-      .replace(/[^\w]/g, " ")
-      .split(" ")
-      .map(word => word.trim())
-      .filter(word => word.length);
   }
 
   static #getUniqueWordsCount(words) {
