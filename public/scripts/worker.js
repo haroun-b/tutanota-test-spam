@@ -1,6 +1,6 @@
 importScripts("./spam-detector.js");
 
-onmessage = ({ data: validEmails }) => {
-  const analysedEmails = SpamDetector.analyseEmails(validEmails);
+onmessage = ({ data: emails }) => {
+  const analysedEmails = SpamDetector.analyseEmails(emails);
   postMessage(analysedEmails);
 };

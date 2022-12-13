@@ -1,4 +1,4 @@
-import { getAnalysisFromWorker, displayAnalysis } from "./helpers.js";
+import { displayAnalysis } from "./helpers.js";
 const worker = new Worker("./scripts/worker.js");
 
 const exampleJsonName = "emails-example.json";
@@ -41,7 +41,7 @@ form.addEventListener("submit", async e => {
   const emailsJson = emailsInput.files[0];
   const emailsJsonIsExample = emailsJson?.name === exampleJsonName && emailsJson.size === 0;
 
-  if (emailsJsonIsExample) return getAnalysisFromWorker({ emails: exampleJsonFile, worker, loadingScreen });
+  if (emailsJsonIsExample) return worker.postMessage(exampleJsonFile);;
 
 
   reader.readAsText(emailsJson);
@@ -51,10 +51,17 @@ form.addEventListener("submit", async e => {
 reader.addEventListener("load", ({ target: { result } }) => {
   const emails = JSON.parse(result);
 
-  getAnalysisFromWorker({ emails, worker, loadingScreen });
+  worker.postMessage(emails);;
 });
 
+
 worker.onmessage = ({ data: analysedEmails }) => {
-  displayAnalysis({ analysedEmails, analysisOutput, template });
+  if (analysedEmails) {
+    displayAnalysis({ analysedEmails, analysisOutput, template });
+  } else {
+    alert("Please provide a json that follows the recommonded structure");
+    console.error("Invalid input!");
+  }
+
   loadingScreen.classList.add("hidden");
 };

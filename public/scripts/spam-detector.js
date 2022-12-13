@@ -1,7 +1,10 @@
 class SpamDetector {
 
   static analyseEmails(emails) {
-    const emailsWithStats = emails.map(email => this.#generateStats(email));
+    const validEmails = this.#validateEmails(emails);
+    if (!validEmails) return null;
+
+    const emailsWithStats = validEmails.map(email => this.#generateStats(email));
 
     // calculates how similar each email to all other emails
     for (let i = 0; i < emailsWithStats.length; i++) {
@@ -58,7 +61,7 @@ class SpamDetector {
   }
 
   static #generateStats(email) {
-    const words = email.body.match(/\w+/g);
+    const words = email.body.match(/\w+/g) || [];
     const wordCount = words.length;
     const uniqueWordsCount = this.#getUniqueWordsCount(words);
 
@@ -75,5 +78,25 @@ class SpamDetector {
     });
 
     return Object.keys(uniqueWordsCount).length;
+  }
+
+  static #validateEmails(emails) {
+    const emailsIsArray = Array.isArray(emails);
+    const emailsIsAllStrings = emailsIsArray && emails.every(email => typeof email === "string");
+    const someEmailsAreValid = emailsIsArray && emails.some(email => typeof email.body === "string");
+
+    if (!emailsIsAllStrings && !someEmailsAreValid) return null;
+
+    if (emailsIsAllStrings) {
+      return emails.map(email => { return { body: email } });
+    }
+
+    if (someEmailsAreValid) {
+      return emails.map(email => {
+        const bodyIsValid = typeof email.body === "string";
+        if (!bodyIsValid) email = { ...email, body: "" };
+        return email;
+      });
+    }
   }
 }
