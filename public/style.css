@@ -67,6 +67,15 @@ form,
   overflow: scroll;
 }
 
+#analysis:empty {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+#analysis:empty::after {
+  content: attr(data-empty-msg);
+}
+
 #analysis>article {
   padding: .8rem 1.4rem;
 }
