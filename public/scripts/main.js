@@ -59,7 +59,7 @@ worker.onmessage = ({ data: analysedEmails }) => {
   if (analysedEmails) {
     displayAnalysis({ analysedEmails, analysisOutput, template });
   } else {
-    alert("Please provide a json that follows the recommonded structure");
+    alert("Please provide a json that follows the recommended structure");
     console.error("Invalid input!");
   }
 

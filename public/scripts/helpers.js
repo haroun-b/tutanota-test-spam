@@ -7,7 +7,7 @@ function displayAnalysis({ analysedEmails, analysisOutput, template }) {
     const hslGreen = 100;
 
     statsCard.querySelector(".title").textContent = email.title || "Unknown";
-    statsCard.querySelector(".recipiant").textContent = email.recipiant || "Unknown";
+    statsCard.querySelector(".recipient").textContent = email.recipient || "Unknown";
     statsCard.querySelector(".word-count").textContent = email.wordCount;
     statsCard.querySelector(".unique-words-count").textContent = email.uniqueWordsCount;
 
