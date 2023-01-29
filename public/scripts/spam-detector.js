@@ -94,7 +94,7 @@ class SpamDetector {
   static #validateEmails(emails) {
     const emailsIsArray = Array.isArray(emails);
     const emailsIsAllStrings = emailsIsArray && emails.every(email => typeof email === "string");
-    const someEmailsAreValid = emailsIsArray && emails.some(email => typeof email.body === "string");
+    const someEmailsAreValid = emailsIsArray && emails.some(email => typeof email?.body === "string");
 
     if (!emailsIsAllStrings && !someEmailsAreValid) return null;
 
@@ -104,10 +104,16 @@ class SpamDetector {
 
     if (someEmailsAreValid) {
       return emails.map(email => {
-        const bodyIsValid = typeof email.body === "string";
+        const bodyIsValid = typeof email?.body === "string";
         if (!bodyIsValid) email = { ...email, body: "" };
         return email;
       });
     }
   }
+}
+
+
+// only exports SpamDetector when testing in node, since otherwise SpamDetector is imported using importScripts in worker.js
+if (typeof process !== "undefined" && process.env.NODE_ENV === "testing") {
+  module.exports = SpamDetector;
 }
