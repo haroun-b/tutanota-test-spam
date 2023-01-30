@@ -11,6 +11,6 @@ module.exports = defineConfig({
           return import('del').then(({ deleteAsync }) => deleteAsync(results.video));
         }
       });
-    },
-  },
+    }
+  }
 });
