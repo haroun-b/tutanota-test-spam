@@ -7,7 +7,7 @@ const {
   mixedWithoutValid,
   mixedWithSomeValidObj,
   allValidObj
-} = require("./fake-emails.js");
+} = require("./unit-test-emails.js");
 
 const analysed = {
   allEmptyStrings: SpamDetector.analyseEmails(allEmptyStrings),

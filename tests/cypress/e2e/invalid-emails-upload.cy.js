@@ -1,4 +1,4 @@
-const invalidJsonName = "invalid-emails.json";
+const invalidJsonName = "e2e-invalid-emails.json";
 
 
 describe("when user uploads an invalid emails json", () => {
@@ -12,11 +12,7 @@ describe("when user uploads an invalid emails json", () => {
   });
 
   it(`displays ${invalidJsonName} as file name in input`, () => {
-    cy.get("input[name=emails]").should($input => {
-      const inputFileName = $input[0].files[0].name;
-
-      expect(inputFileName).to.equal(invalidJsonName);
-    });
+    require("../helpers/check-input-name")(invalidJsonName);
   });
 
   describe("alerts and logs", () => {

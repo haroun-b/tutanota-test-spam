@@ -9,11 +9,7 @@ describe("when user submits without upload", () => {
   });
 
   it(`displays ${exampleJsonName} as file name in input`, () => {
-    cy.get("input[name=emails]").should($input => {
-      const inputFileName = $input[0].files[0].name;
-
-      expect(inputFileName).to.equal(exampleJsonName);
-    });
+    require("../helpers/check-input-name")(exampleJsonName);
   });
 
   it("renders example analysis result on the page", () => {
