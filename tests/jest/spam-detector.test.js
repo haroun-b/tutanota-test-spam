@@ -1,5 +1,5 @@
-const SpamDetector = require("../public/scripts/spam-detector.js");
-const exampleEmailsJson = require("../public/scripts/emails-example.json");
+const SpamDetector = require("../../public/scripts/spam-detector.js");
+const exampleEmailsJson = require("../../public/scripts/emails-example.json");
 const {
   allEmptyStrings,
   allNonEmptyStrings,
