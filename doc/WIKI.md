@@ -9,6 +9,8 @@
 ## Module structure
 ![Module structure](./module-structure.svg)
 
+**NOTE:** The project uses ES Modules on the Front-End, and CommonJS modules on the Back-End. This is done because the project uses Jest for testing, and its ES Module support is still experimental at the time of writing this.
+
 ## Code structure
 All the scripts are in the [`scripts/`](../public/scripts/) directory.
 
