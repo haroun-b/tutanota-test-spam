@@ -130,4 +130,65 @@ describe("analyseEmails", () => {
 
     expect(used).toEqual(unused);
   });
+
+  describe("spamScore", () => {
+    test("should not consider emails with empty bodies as spam", () => {
+      const analysed = SpamDetector.analyseEmails(["", "", ""]);
+
+      analysed.every(email => {
+        expect(email.spamScore).toBe(0);
+      });
+    });
+
+    test("should assign a spamScore of 0 when passed emails that share no words", () => {
+      const analysed = SpamDetector.analyseEmails(["Hello There", "Hi Friend", "Goodbye Buddy"]);
+
+      analysed.every(email => {
+        expect(email.spamScore).toBe(0);
+      });
+    });
+
+    test("should assign a spamScore of 100 when passed identical emails", () => {
+      const analysed = SpamDetector.analyseEmails(["I'm unique and original", "I'm unique and original", "I'm unique and original"]);
+
+      analysed.every(email => {
+        expect(email.spamScore).toBe(100);
+      });
+    });
+
+    describe("should return an array of analysed emails with the correct spamScore based on a correct similarityArray", () => {
+      const [emailA, emailB, emailC] = SpamDetector.analyseEmails(["one two three four five", "one five three four", "one two  five"]);
+
+      test("similarityArray", () => {
+        expect(emailA.similarityArray).toEqual([60, 60]);
+        expect(emailB.similarityArray).toEqual([60, 25]);
+        expect(emailC.similarityArray).toEqual([60, 25]);
+      });
+      test("spamScore", () => {
+        expect(emailA.spamScore).toBe(60);
+        expect(emailB.spamScore).toBe(42.5);
+        expect(emailC.spamScore).toBe(42.5);
+      });
+    });
+  });
+
+  test("should return an array of analysed emails with the correct words array", () => {
+    const [analysedEmail] = SpamDetector.analyseEmails(["How many words am I holding up?"]);
+
+    expect(analysedEmail.words).toEqual(["How", "many", "words", "am", "I", "holding", "up"]);
+  });
+
+  describe("should return an array of analysed emails with the correct wordCount", () => {
+    test("when the email body is empty", () => {
+      const [analysedEmail] = SpamDetector.analyseEmails([""]);
+
+      expect(analysedEmail.wordCount).toBe(0);
+    });
+
+    test("when the email body is not empty", () => {
+      const [analysedEmail] = SpamDetector.analyseEmails(["You can count on my words to guide you"]);
+
+      expect(analysedEmail.wordCount).toBe(9);
+    });
+  });
 });

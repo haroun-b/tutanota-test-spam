@@ -17,8 +17,9 @@ class SpamDetector {
 
     // reduces the similarityArray to an average spamScore
     emailsWithStats.forEach(email => {
-      const similarityTotal = email.similarityArray.reduce((acc, cur) => acc + cur);
-      const comparisonsCount = email.similarityArray.length;
+      // to account for when there's only one email in the set, reduce uses 0 as an initial value and the comparisonsCount is set to 1 when the similarityArray is empty
+      const similarityTotal = email.similarityArray.reduce((acc, cur) => acc + cur, 0);
+      const comparisonsCount = email.similarityArray.length || 1;
 
       email.spamScore = parseFloat((similarityTotal / comparisonsCount).toFixed(2));
     });
