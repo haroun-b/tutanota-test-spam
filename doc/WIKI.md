@@ -37,13 +37,13 @@ All `SpamDetector` methods are static.
 All `SpamDetector` methods are private helpers except for `analyseEmails`.
 
 #### `analyseEmails`
-- Takes an array of email objects as argument
-- Uses the helper methods to: `validateEmails`, `generateStats` for each email, then using `getSimilarity` it compares every email to all the others is the set, pushing the result of the comparison into both compared emails' `similarityArray`
-- For each email, reduces the `similarityArray` to one value (the average): (similarityTotal / comparisonsCount)
+Takes an array of email objects as argument.
+1. Uses the helper methods to: `validateEmails`, `generateStats` for each email, then using `getSimilarity` it compares every email to all the others is the set, pushing the result of the comparison into both compared emails' `similarityArray`
+2. For each email, reduces the `similarityArray` to one value (the average): similarityTotal / comparisonsCount
 
 Returns:
-- `null` when passed an invalid emails set
-- an array of analysed emails, when passed a valid set
+- When passed an invalid emails set: `null`
+- When passed a valid set: an array of analysed emails
 
 #### `getSimilarity`
 - Helper private class method
