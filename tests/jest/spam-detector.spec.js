@@ -1,5 +1,5 @@
 const SpamDetector = require("../../public/scripts/spam-detector.js");
-const exampleEmailsJson = require("../../public/scripts/emails-example.json");
+
 const {
   allEmptyStrings,
   allNonEmptyStrings,
@@ -117,13 +117,17 @@ describe("analyseEmails", () => {
     expect(analysed.someEmptyStrings.map(email => email.body)).toEqual(someEmptyStrings);
   });
 
+  test("should not modify the original array", () => {
+    const unused = require("./unit-test-emails.js");
+    const used = {
+      allEmptyStrings,
+      allNonEmptyStrings,
+      someEmptyStrings,
+      mixedWithoutValid,
+      mixedWithSomeValidObj,
+      allValidObj
+    };
 
-
-
-  describe("when passed an array of email objects where some of them contain a body property of type string", () => {
-    it.todo("should return an array of objects: {...emailObject, body: string}");
-    it.todo("should add an empty string body property to email objects that don't have a body of type string");
+    expect(used).toEqual(unused);
   });
-
-  it.todo("should return an array of objects: {body: string} when passed an array of strings");
 });

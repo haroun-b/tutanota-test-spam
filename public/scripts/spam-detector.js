@@ -5,7 +5,7 @@ class SpamDetector {
 
     const emailsWithStats = validEmails.map(email => this.#generateStats(email));
 
-    // calculates how similar each email to all other emails
+    // calculates how similar each email is to all other emails
     for (let i = 0; i < emailsWithStats.length; i++) {
       for (let j = i + 1; j < emailsWithStats.length; j++) {
         const similarity = this.#getSimilarity(emailsWithStats[i], emailsWithStats[j]);
@@ -26,15 +26,14 @@ class SpamDetector {
     return emailsWithStats;
   }
 
-  // calculates similarity using Levenshtein distance
-  // with ((levenshteinDistance / longerEmailWordCount) * 100) as the difference between two emails in percent
-  // getSimilarity takes two email objects as arguments, uses their respective wordsArray and wordCount to return (100 - the difference between two emails in percent). ie: the similarity between two emails in percent
+  // calculates similarity using Levenshtein distance on words
+  // with ((levenshteinDistance / longerEmailWordCount) * 100) as the difference between two emails in percent, (100 - diff) is the similarity
   static #getSimilarity(
     { words: wordsA, wordCount: wordCountA },
     { words: wordsB, wordCount: wordCountB }
   ) {
 
-    // similarity is 0% if one of the email is empty. doesn't consider empty emails as spam
+    // similarity is 0% if any of the emails is empty. doesn't consider empty emails as spam
     if (!wordCountA || !wordCountB) return 0;
 
     const longerEmailLength = Math.max(wordCountA, wordCountB);
@@ -65,13 +64,12 @@ class SpamDetector {
     return 100 - diffPercent;
   }
 
-
   static #generateStats(email) {
     const words = email.body.match(/\w+/g) || [];
     const wordCount = words.length;
     const uniqueWordsCount = this.#getUniqueWordsCount(words);
 
-    // the similarityArray holds the email's comparisons with others in its set
+    // the similarityArray will hold the email's comparisons with others in its set
     return { ...email, words, wordCount, uniqueWordsCount, similarityArray: [] };
   }
 
@@ -87,10 +85,6 @@ class SpamDetector {
     return Object.keys(uniqueWordsCount).length;
   }
 
-  // validateEmails considers the following as valid:
-  // - an array of strings where every string represents an email's body
-  // - an array of email objects where some objects contain at least a body property of type string ({body: string})
-  // validateEmails returns an array of email objects { ...email, body: string } when valid. and null when not valid
   static #validateEmails(emails) {
     const emailsIsArray = Array.isArray(emails);
     const emailsIsAllStrings = emailsIsArray && emails.every(email => typeof email === "string");
@@ -105,6 +99,7 @@ class SpamDetector {
     if (someEmailsAreValid) {
       return emails.map(email => {
         const bodyIsValid = typeof email?.body === "string";
+        // overwrites body when invalid
         if (!bodyIsValid) email = { ...email, body: "" };
         return email;
       });
