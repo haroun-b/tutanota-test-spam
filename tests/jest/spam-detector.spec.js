@@ -1,3 +1,5 @@
+// SpamDetector's pivate methods are tested through `analyseEmails` (its only public method) which uses them, this is done so as to not expose these private methods just so they can be tested
+
 const SpamDetector = require("../../public/scripts/spam-detector.js");
 
 const {
@@ -17,6 +19,7 @@ const analysed = {
   mixedWithSomeValidObj: SpamDetector.analyseEmails(mixedWithSomeValidObj),
   allValidObj: SpamDetector.analyseEmails(allValidObj)
 };
+
 
 describe("analyseEmails", () => {
   describe("should return null when passed anything that isn't an array", () => {
@@ -139,7 +142,6 @@ describe("analyseEmails", () => {
         expect(email.spamScore).toBe(0);
       });
     });
-
     test("should assign a spamScore of 0 when passed emails that share no words", () => {
       const analysed = SpamDetector.analyseEmails(["Hello There", "Hi Friend", "Goodbye Buddy"]);
 
@@ -184,7 +186,6 @@ describe("analyseEmails", () => {
 
       expect(analysedEmail.wordCount).toBe(0);
     });
-
     test("when the email body is not empty", () => {
       const [analysedEmail] = SpamDetector.analyseEmails(["You can count on my words to guide you"]);
 
