@@ -4,6 +4,9 @@ A simple browser application that uses a set of emails uploaded as **json** to a
 
 This implementation uses **Levenstein distance** to compare the email bodies, and the **Web Workers API** to run the algorithm in a worker thread so as to not block the main thread.
 
+## Documentation
+See [WIKI.md](./doc/WIKI.md)
+
 ## Run the app locally
 ### Prerequisites
 - [NodeJS](https://nodejs.org/en/download/)
@@ -18,6 +21,13 @@ cd tutanota-test-spam
 npm install
 npm start
 ```
+
+### Run tests
+```bash
+npm run test
+```
+
+**NOTE:** Make sure the app is running locally, before running E2E tests.
 
 ## Live version
 Alternatively you can check out the [live version](https://harryb.dev/tutanota-test-spam/)
