@@ -1,6 +1,7 @@
 import { displayAnalysis } from "./helpers.js";
 const worker = new Worker("./scripts/worker.js");
 
+// exampleJson contains mock data, and is to be used if the user doesn't upload an emails json to be analysed
 const exampleJsonName = "emails-example.json";
 // because "assert {type: 'json'}" isn't yet widely adopted
 const exampleJsonFile = await (await fetch(`./scripts/${exampleJsonName}`)).json();
@@ -18,9 +19,10 @@ form.addEventListener("submit", async e => {
   e.preventDefault();
   loadingScreen.classList.remove("hidden");
 
+
+  // if the user doesn't provide an emails json, we create a new empty File object with our exampleJson's name and pass it to our emailsInput using a newly created DataTransfer object. this workaround is done so we can display the exampleJson file's name in the input element
   if (!emailsInput.files[0]) {
     // ===================================
-    // a workaround to display the example file's name in the input
     // credit goes to: Rik Schennink - "https://pqina.nl/blog/set-value-to-file-input/"
     const placeholderFile = new File([], exampleJsonName, {
       type: 'application/json',
@@ -39,9 +41,9 @@ form.addEventListener("submit", async e => {
   }
 
   const emailsJson = emailsInput.files[0];
-  const emailsJsonIsExample = emailsJson?.name === exampleJsonName && emailsJson.size === 0;
+  const emailsJsonIsExample = emailsJson.name === exampleJsonName && emailsJson.size === 0;
 
-  if (emailsJsonIsExample) return worker.postMessage(exampleJsonFile);;
+  if (emailsJsonIsExample) return worker.postMessage(exampleJsonFile);
 
 
   reader.readAsText(emailsJson);
@@ -51,7 +53,7 @@ form.addEventListener("submit", async e => {
 reader.addEventListener("load", ({ target: { result } }) => {
   const emails = JSON.parse(result);
 
-  worker.postMessage(emails);;
+  worker.postMessage(emails);
 });
 
 
@@ -59,7 +61,7 @@ worker.onmessage = ({ data: analysedEmails }) => {
   if (analysedEmails) {
     displayAnalysis({ analysedEmails, analysisOutput, template });
   } else {
-    alert("Please provide a json that follows the recommonded structure");
+    alert("Please provide a json that follows the recommended structure");
     console.error("Invalid input!");
   }
 
