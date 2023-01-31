@@ -36,7 +36,7 @@ Contains the worker thread code.
 All `SpamDetector` methods are static.
 All `SpamDetector` methods are private helpers except for `analyseEmails`.
 
-#### `analyseEmails`
+#### `analyseEmails`
 - Takes an array of email objects as argument
 - Uses the helper methods to: `validateEmails`, `generateStats` for each email, then using `getSimilarity` it compares every email to all the others is the set, pushing the result of the comparison into both compared emails' `similarityArray`
 - For each email, reduces the `similarityArray` to one value (the average): (similarityTotal / comparisonsCount)
@@ -45,7 +45,7 @@ Returns:
 - `null` when passed an invalid emails set
 - an array of analysed emails, when passed a valid set
 
-#### `getSimilarity`
+#### `getSimilarity`
 - Helper private class method
 - Takes as arguments: two email objects with stats. Uses their respective `words` array and `wordCount` to compare how similar the two are, using Levenstein distance on their words.
 
@@ -53,7 +53,7 @@ Returns:
 - `0` if any of the two has a word count of zero (doesn't consider emails with empty bodies as similiar)
 - a `number` representing a similarity percentage: 100 - ((wordsLavensteinDistance / greaterWordCount) * 100)
 
-#### `generateStats`
+#### `generateStats`
 - Helper private class method
 - Takes as arguments: an email object. Uses its `body` property to generate: `words`; `wordCount`; and `uniqueWordsCount`
 
@@ -62,13 +62,13 @@ Return an object containing:
 - The generated stats
 - An empty `similarityArray`
 
-#### `getUniqueWordsCount`
+#### `getUniqueWordsCount`
 - Helper private class method
 - Takes as arguments: an array of strings where every string is a word.
 
 Returns: a `number` representing the count of unique words
 
-#### `validateEmails`
+#### `validateEmails`
 - Helper private class method
 - Takes as arguments: an array of emails
 
