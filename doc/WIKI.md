@@ -19,7 +19,7 @@ Contains the main thread code and is responsible for updating the UI.
 - On form submit: posts the emails uploaded by the user (or the example emails: [`emails-example.json`](../public/scripts/emails-example.json), if the user didn't upload any) to the worker to be analysed.
 - On worker message: it renders the analysis result on the page, if there is one. Otherwise it alerts the user that there's been an issue and logs the error to the console.
 
-### [`helper.js`](../public/scripts/helper.js)
+### [`helpers.js`](../public/scripts/helpers.js)
 #### `displayAnalysis`
 Takes as argument an object containing:
 - `analysedEmails`: the analysed emails returned from the worker
