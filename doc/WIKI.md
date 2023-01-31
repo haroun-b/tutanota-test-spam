@@ -4,7 +4,7 @@
 ## Basic structure
 - [`tests/`](../tests): Contains all the tests. [`jest/`](../tests/jest) for unit tests and [`cypress/`](../tests/cypress) for E2E
 - [`public/`](../public): Actual app's code
-- [`index.js`](../index.js): Runs the `express` server which servers the app locally
+- [`index.js`](../index.js): Runs the `express` server which serves the app locally
 
 ## Module structure
 ![Module structure](./module-structure.svg)
@@ -40,7 +40,7 @@ All `SpamDetector` methods are private helpers except for `analyseEmails`.
 
 #### `analyseEmails`
 Takes an array of email objects as argument.
-1. Uses the helper methods to: `validateEmails`, `generateStats` for each email, then using `getSimilarity` it compares every email to all the others is the set, pushing the result of the comparison into both compared emails' `similarityArray`
+1. Uses the helper methods to: `validateEmails`, `generateStats` for each email, then using `getSimilarity` it compares every email to all the others in the set, pushing the result of the comparison into both compared emails' `similarityArray`
 2. For each email, reduces the `similarityArray` to one value (the average): similarityTotal / comparisonsCount
 
 Returns:
