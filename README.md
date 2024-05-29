@@ -30,4 +30,4 @@ npm run test
 **NOTE:** Make sure the app is running locally, before running E2E tests.
 
 ## Live version
-Alternatively you can check out the [live version](https://harryb.dev/tutanota-test-spam/)
+Alternatively you can check out the [live version](https://haroun-b.github.io/tutanota-test-spam)
